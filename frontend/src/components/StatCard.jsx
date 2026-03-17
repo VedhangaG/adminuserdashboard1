@@ -1,11 +1,32 @@
 import { motion } from 'framer-motion';
+import { TrendingUp } from 'lucide-react';
 
 export const StatCard = ({ title, value, icon: Icon, color, index }) => {
   const colorClasses = {
-    blue: { bg: 'from-pastel-blue/20 to-pastel-blue/5', iconBg: 'bg-pastel-blue', ring: 'ring-pastel-blue/30' },
-    purple: { bg: 'from-pastel-purple/20 to-pastel-purple/5', iconBg: 'bg-pastel-purple', ring: 'ring-pastel-purple/30' },
-    mint: { bg: 'from-pastel-mint/20 to-pastel-mint/5', iconBg: 'bg-pastel-mint', ring: 'ring-pastel-mint/30' },
-    peach: { bg: 'from-pastel-peach/20 to-pastel-peach/5', iconBg: 'bg-pastel-peach', ring: 'ring-pastel-peach/30' },
+    blue: { 
+      gradient: 'from-blue-500 to-blue-600',
+      bg: 'bg-blue-50',
+      text: 'text-blue-700',
+      border: 'border-blue-200'
+    },
+    purple: { 
+      gradient: 'from-purple-500 to-purple-600',
+      bg: 'bg-purple-50',
+      text: 'text-purple-700',
+      border: 'border-purple-200'
+    },
+    mint: { 
+      gradient: 'from-emerald-500 to-emerald-600',
+      bg: 'bg-emerald-50',
+      text: 'text-emerald-700',
+      border: 'border-emerald-200'
+    },
+    peach: { 
+      gradient: 'from-orange-500 to-orange-600',
+      bg: 'bg-orange-50',
+      text: 'text-orange-700',
+      border: 'border-orange-200'
+    },
   };
 
   const colors = colorClasses[color];
@@ -14,38 +35,27 @@ export const StatCard = ({ title, value, icon: Icon, color, index }) => {
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: index * 0.1, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-      whileHover={{ y: -8, transition: { duration: 0.3 } }}
-      className="group relative bg-white rounded-3xl p-8 border border-slate-100/50 overflow-hidden"
+      transition={{ delay: index * 0.08, duration: 0.4 }}
+      className="group relative bg-white rounded-xl p-6 border border-slate-200 hover:border-slate-300 transition-all duration-300"
       style={{ 
-        boxShadow: '0 1px 3px rgba(0,0,0,0.02), 0 8px 24px rgba(0,0,0,0.04)',
+        boxShadow: '0 1px 2px rgba(0,0,0,0.05)',
       }}
       data-testid={`stat-card-${title.toLowerCase().replace(/\s+/g, '-')}`}
     >
-      {/* Background gradient */}
-      <div className={`absolute inset-0 bg-gradient-to-br ${colors.bg} opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
-      
-      {/* Content */}
-      <div className="relative flex items-start justify-between">
-        <div className="flex-1">
-          <p className="text-xs font-semibold text-slate-500 uppercase tracking-widest mb-3">{title}</p>
-          <h3 className="text-5xl font-bold text-slate-900 mb-1" style={{ letterSpacing: '-0.02em' }}>{value}</h3>
-          <div className="flex items-center gap-2 mt-2">
-            <div className={`h-1 w-12 rounded-full ${colors.iconBg}`} />
-            <span className="text-xs text-slate-400">Live data</span>
-          </div>
+      <div className="flex items-start justify-between mb-4">
+        <div className={`${colors.bg} ${colors.border} border p-3 rounded-lg`}>
+          <Icon className={`w-5 h-5 ${colors.text}`} strokeWidth={2} />
         </div>
-        <motion.div
-          whileHover={{ scale: 1.1, rotate: 5 }}
-          transition={{ duration: 0.3 }}
-          className={`${colors.iconBg} w-16 h-16 rounded-2xl flex items-center justify-center shadow-lg ring-4 ${colors.ring}`}
-        >
-          <Icon className="w-8 h-8 text-white" strokeWidth={2.5} />
-        </motion.div>
+        <div className="flex items-center gap-1 text-xs font-medium text-emerald-600">
+          <TrendingUp className="w-3 h-3" />
+          <span>+12%</span>
+        </div>
       </div>
       
-      {/* Decorative corner accent */}
-      <div className={`absolute -bottom-6 -right-6 w-24 h-24 ${colors.iconBg} rounded-full opacity-5 blur-2xl`} />
+      <div>
+        <p className="text-sm font-medium text-slate-500 mb-1">{title}</p>
+        <h3 className="text-3xl font-bold text-slate-900">{value}</h3>
+      </div>
     </motion.div>
   );
 };

@@ -1,33 +1,28 @@
 import { motion } from 'framer-motion';
+import { MoreVertical } from 'lucide-react';
 
 export const ChartCard = ({ title, children, index }) => {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: 0.4 + index * 0.1, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-      className="bg-white rounded-3xl p-8 border border-slate-100/50 relative overflow-hidden"
+      transition={{ delay: 0.3 + index * 0.08, duration: 0.4 }}
+      className="bg-white rounded-xl p-6 border border-slate-200"
       style={{ 
-        boxShadow: '0 1px 3px rgba(0,0,0,0.02), 0 8px 24px rgba(0,0,0,0.04)',
+        boxShadow: '0 1px 2px rgba(0,0,0,0.05)',
       }}
       data-testid={`chart-card-${title.toLowerCase().replace(/\s+/g, '-')}`}
     >
-      {/* Subtle gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-br from-slate-50/50 to-transparent pointer-events-none" />
-      
-      <div className="relative">
-        <div className="flex items-center justify-between mb-8">
-          <div>
-            <h3 className="text-2xl font-bold text-slate-900" style={{ letterSpacing: '-0.01em' }}>{title}</h3>
-            <div className="h-1 w-16 bg-gradient-to-r from-pastel-blue to-pastel-purple rounded-full mt-2" />
-          </div>
-          <div className="flex items-center gap-2">
-            <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
-            <span className="text-xs text-slate-400 font-medium">Real-time</span>
-          </div>
+      <div className="flex items-center justify-between mb-6">
+        <div>
+          <h3 className="text-lg font-semibold text-slate-900">{title}</h3>
+          <p className="text-sm text-slate-500 mt-0.5">Last 30 days</p>
         </div>
-        <div>{children}</div>
+        <button className="p-2 hover:bg-slate-100 rounded-lg transition-colors">
+          <MoreVertical className="w-5 h-5 text-slate-400" />
+        </button>
       </div>
+      <div>{children}</div>
     </motion.div>
   );
 };

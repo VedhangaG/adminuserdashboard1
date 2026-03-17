@@ -34,9 +34,27 @@
     @apply border-border;
   }
   body {
-    @apply bg-bg-soft text-text-main font-dm-sans;
+    @apply bg-slate-50 text-slate-900 font-dm-sans antialiased;
   }
   h1, h2, h3, h4, h5, h6 {
     @apply font-outfit;
   }
+}
+
+/* Professional scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-slate-100;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-slate-300 rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-slate-400;
 }
