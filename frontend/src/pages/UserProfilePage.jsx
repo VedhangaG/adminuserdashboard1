@@ -128,9 +128,15 @@ export default function UserProfilePage() {
             <div className="mt-8 pt-8 border-t border-slate-100">
               <h3 className="text-lg font-semibold text-slate-900 mb-4">Account Information</h3>
               <div className="space-y-3 text-sm">
-                <div className="flex justify-between">
+                <div className="flex justify-between items-center">
                   <span className="text-slate-500">Account ID:</span>
-                  <span className="text-slate-900 font-medium">{profile.id}</span>
+                  <span className={`font-bold text-base px-4 py-2 rounded-xl ${
+                    profile.role === 'admin' 
+                      ? 'bg-pastel-purple/20 text-purple-700' 
+                      : 'bg-pastel-blue/20 text-blue-700'
+                  }`}>
+                    {profile.id}
+                  </span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-slate-500">Member Since:</span>

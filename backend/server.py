@@ -34,6 +34,16 @@ api_router = APIRouter(prefix="/api")
 async def root():
     return {"message": "Admin User Management API"}
 
+async def generate_user_id(role: str):
+    """Generate a readable user ID like USR-0001 or ADM-0001"""
+    prefix = "ADM" if role == "admin" else "USR"
+    
+    # Count existing users with this role
+    count = await db.users.count_documents({"role": role})
+    next_number = count + 1
+    
+    return f"{prefix}-{next_number:04d}"
+
 @api_router.post("/register", status_code=status.HTTP_201_CREATED)
 async def register_user(user: UserCreate):
     existing_user = await db.users.find_one({"email": user.email}, {"_id": 0})
@@ -43,8 +53,10 @@ async def register_user(user: UserCreate):
             detail="Email already registered"
         )
     
+    user_id = await generate_user_id(user.role)
+    
     user_dict = {
-        "id": str(uuid.uuid4()),
+        "id": user_id,
         "name": user.name,
         "email": user.email,
         "password": get_password_hash(user.password),
@@ -95,8 +107,10 @@ async def create_user(user: UserCreate, current_user: dict = Depends(get_current
             detail="Email already registered"
         )
     
+    user_id = await generate_user_id(user.role)
+    
     user_dict = {
-        "id": str(uuid.uuid4()),
+        "id": user_id,
         "name": user.name,
         "email": user.email,
         "password": get_password_hash(user.password),
