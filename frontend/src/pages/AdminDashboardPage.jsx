@@ -41,22 +41,27 @@ export default function AdminDashboardPage() {
   const COLORS = ['#A7C7E7', '#CDB4DB', '#B7E4C7', '#FFD6A5'];
 
   return (
-    <div className="min-h-screen flex" data-testid="admin-dashboard">
+    <div className="min-h-screen flex bg-gradient-to-br from-slate-50 via-white to-slate-50" data-testid="admin-dashboard">
       <Sidebar isAdmin={true} />
       <div className="flex-1">
         <Navbar userName={userName} isAdmin={true} />
-        <main className="w-full max-w-[1600px] mx-auto p-4 md:p-8">
+        <main className="w-full max-w-[1600px] mx-auto p-6 md:p-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="mb-8"
+            className="mb-10"
           >
-            <h1 className="text-4xl md:text-5xl font-bold text-slate-900 mb-2">Admin Dashboard</h1>
-            <p className="text-slate-500">Overview of your system metrics and user analytics</p>
+            <div className="flex items-center gap-3 mb-3">
+              <div className="h-12 w-1.5 bg-gradient-to-b from-pastel-blue to-pastel-purple rounded-full" />
+              <h1 className="text-5xl md:text-6xl font-bold text-slate-900" style={{ letterSpacing: '-0.03em' }}>
+                Admin Dashboard
+              </h1>
+            </div>
+            <p className="text-slate-500 text-lg ml-7">Real-time overview of your system metrics and user analytics</p>
           </motion.div>
 
           {stats && (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
               <StatCard title="Total Users" value={stats.total_users} icon={Users} color="blue" index={0} />
               <StatCard title="Total Admins" value={stats.total_admins} icon={Shield} color="purple" index={1} />
               <StatCard title="Active Users" value={stats.active_users} icon={Activity} color="mint" index={2} />
@@ -64,7 +69,7 @@ export default function AdminDashboardPage() {
             </div>
           )}
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-10">
             <ChartCard title="User Growth" index={0}>
               <ResponsiveContainer width="100%" height={300}>
                 <LineChart data={userGrowth}>

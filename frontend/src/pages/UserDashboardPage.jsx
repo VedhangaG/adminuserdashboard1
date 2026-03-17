@@ -36,33 +36,37 @@ export default function UserDashboardPage() {
   }
 
   return (
-    <div className="min-h-screen flex" data-testid="user-dashboard">
+    <div className="min-h-screen flex bg-gradient-to-br from-slate-50 via-white to-pastel-mint/5" data-testid="user-dashboard">
       <Sidebar isAdmin={false} />
       <div className="flex-1">
         <Navbar userName={userName} isAdmin={false} />
-        <main className="w-full max-w-[1600px] mx-auto p-4 md:p-8">
+        <main className="w-full max-w-[1600px] mx-auto p-6 md:p-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="mb-8"
+            className="mb-10"
           >
-            <h1 className="text-4xl md:text-5xl font-bold text-slate-900 mb-2">
-              Welcome back, {profile.name}! 👋
-            </h1>
-            <p className="text-slate-500">Here's your account overview</p>
+            <div className="flex items-center gap-3 mb-3">
+              <div className="h-12 w-1.5 bg-gradient-to-b from-pastel-mint to-pastel-blue rounded-full" />
+              <h1 className="text-5xl md:text-6xl font-bold text-slate-900" style={{ letterSpacing: '-0.03em' }}>
+                Welcome back, {profile.name}! 👋
+              </h1>
+            </div>
+            <p className="text-slate-500 text-lg ml-7">Here's your personalized account overview</p>
           </motion.div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 }}
-              className="bg-white rounded-2xl p-8 border border-slate-100"
-              style={{ boxShadow: '0 2px 20px rgba(0,0,0,0.04)' }}
+              className="bg-white/70 backdrop-blur-xl rounded-3xl p-10 border border-slate-100/50 relative overflow-hidden"
+              style={{ boxShadow: '0 1px 3px rgba(0,0,0,0.02), 0 8px 24px rgba(0,0,0,0.04)' }}
               data-testid="account-overview-card"
             >
-              <h2 className="text-2xl font-semibold text-slate-900 mb-6">Account Overview</h2>
-              <div className="space-y-6">
+              <div className="absolute inset-0 bg-gradient-to-br from-pastel-blue/5 to-transparent pointer-events-none" />
+              <h2 className="text-3xl font-bold text-slate-900 mb-8 relative z-10" style={{ letterSpacing: '-0.01em' }}>Account Overview</h2>
+              <div className="space-y-8 relative z-10">
                 <div className="flex items-start gap-4">
                   <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-pastel-blue to-blue-200 flex items-center justify-center flex-shrink-0">
                     <UserIcon className="w-6 h-6 text-white" />
@@ -99,12 +103,13 @@ export default function UserDashboardPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
-              className="bg-white rounded-2xl p-8 border border-slate-100"
-              style={{ boxShadow: '0 2px 20px rgba(0,0,0,0.04)' }}
+              className="bg-white/70 backdrop-blur-xl rounded-3xl p-10 border border-slate-100/50 relative overflow-hidden"
+              style={{ boxShadow: '0 1px 3px rgba(0,0,0,0.02), 0 8px 24px rgba(0,0,0,0.04)' }}
               data-testid="account-details-card"
             >
-              <h2 className="text-2xl font-semibold text-slate-900 mb-6">Account Details</h2>
-              <div className="space-y-6">
+              <div className="absolute inset-0 bg-gradient-to-br from-pastel-mint/5 to-transparent pointer-events-none" />
+              <h2 className="text-3xl font-bold text-slate-900 mb-8 relative z-10" style={{ letterSpacing: '-0.01em' }}>Account Details</h2>
+              <div className="space-y-8 relative z-10">
                 <div className="flex items-start gap-4">
                   <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-pastel-peach to-orange-200 flex items-center justify-center flex-shrink-0">
                     <Calendar className="w-6 h-6 text-white" />
