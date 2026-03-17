@@ -1,40 +1,40 @@
-import { useEffect } from "react";
 import "@/App.css";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import axios from "axios";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { Toaster } from "@/components/ui/sonner";
+import UserRegisterPage from "./pages/UserRegisterPage";
+import UserLoginPage from "./pages/UserLoginPage";
+import AdminLoginPage from "./pages/AdminLoginPage";
+import UserDashboardPage from "./pages/UserDashboardPage";
+import AdminDashboardPage from "./pages/AdminDashboardPage";
+import UserProfilePage from "./pages/UserProfilePage";
+import UserManagementPage from "./pages/UserManagementPage";
+import AnalyticsPage from "./pages/AnalyticsPage";
+import RecentActivityPage from "./pages/RecentActivityPage";
 
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
-const API = `${BACKEND_URL}/api`;
+const ProtectedRoute = ({ children, requiredRole }) => {
+  const token = localStorage.getItem('token');
+  const role = localStorage.getItem('role');
 
-const Home = () => {
-  const helloWorldApi = async () => {
-    try {
-      const response = await axios.get(`${API}/`);
-      console.log(response.data.message);
-    } catch (e) {
-      console.error(e, `errored out requesting / api`);
-    }
-  };
+  if (!token) {
+    return <Navigate to="/login" replace />;
+  }
 
-  useEffect(() => {
-    helloWorldApi();
-  }, []);
+  if (requiredRole && role !== requiredRole) {
+    return <Navigate to={role === 'admin' ? '/admin-dashboard' : '/user-dashboard'} replace />;
+  }
 
-  return (
-    <div>
-      <header className="App-header">
-        <a
-          className="App-link"
-          href="https://emergent.sh"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <img src="https://avatars.githubusercontent.com/in/1201222?s=120&u=2686cf91179bbafbc7a71bfbc43004cf9ae1acea&v=4" />
-        </a>
-        <p className="mt-5">Building something incredible ~!</p>
-      </header>
-    </div>
-  );
+  return children;
+};
+
+const PublicRoute = ({ children }) => {
+  const token = localStorage.getItem('token');
+  const role = localStorage.getItem('role');
+
+  if (token) {
+    return <Navigate to={role === 'admin' ? '/admin-dashboard' : '/user-dashboard'} replace />;
+  }
+
+  return children;
 };
 
 function App() {
@@ -42,11 +42,89 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Home />}>
-            <Route index element={<Home />} />
-          </Route>
+          <Route
+            path="/"
+            element={
+              <PublicRoute>
+                <UserLoginPage />
+              </PublicRoute>
+            }
+          />
+          <Route
+            path="/register"
+            element={
+              <PublicRoute>
+                <UserRegisterPage />
+              </PublicRoute>
+            }
+          />
+          <Route
+            path="/login"
+            element={
+              <PublicRoute>
+                <UserLoginPage />
+              </PublicRoute>
+            }
+          />
+          <Route
+            path="/admin-login"
+            element={
+              <PublicRoute>
+                <AdminLoginPage />
+              </PublicRoute>
+            }
+          />
+          <Route
+            path="/admin-dashboard"
+            element={
+              <ProtectedRoute requiredRole="admin">
+                <AdminDashboardPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/user-management"
+            element={
+              <ProtectedRoute requiredRole="admin">
+                <UserManagementPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/analytics"
+            element={
+              <ProtectedRoute requiredRole="admin">
+                <AnalyticsPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/recent-activity"
+            element={
+              <ProtectedRoute requiredRole="admin">
+                <RecentActivityPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/user-dashboard"
+            element={
+              <ProtectedRoute requiredRole="user">
+                <UserDashboardPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/user-profile"
+            element={
+              <ProtectedRoute requiredRole="user">
+                <UserProfilePage />
+              </ProtectedRoute>
+            }
+          />
         </Routes>
       </BrowserRouter>
+      <Toaster position="top-right" />
     </div>
   );
 }
