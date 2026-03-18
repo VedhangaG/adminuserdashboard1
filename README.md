@@ -32,4 +32,4 @@ Team onboarding
 Client handoff
 Portfolio showcase
 
-
+A demo video is attached in this repository showing the complete workflow of the application including login, dashboard operations, and user management.
