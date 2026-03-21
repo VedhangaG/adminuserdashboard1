@@ -33,3 +33,15 @@ Client handoff
 Portfolio showcase
 
 A demo video is attached in this repository showing the complete workflow of the application including login, dashboard operations, and user management.
+
+
+
+
+https://github.com/user-attachments/assets/f3cfc5cc-e8da-4150-94c7-9d2430a8dbaa
+
+
+
+
+https://github.com/user-attachments/assets/c97ba124-52d1-4b37-9dae-7abee340c18f
+
+
